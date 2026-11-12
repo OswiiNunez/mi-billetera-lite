@@ -1,5 +1,3 @@
-# Mi Billetera Lite
-
 PWA para registrar gastos diarios, con HTML, CSS y JavaScript nativos, IndexedDB y Service Worker. La PWA no requiere paquetes ni servicios externos (`npm install` solo es necesario para la versión Expo Go) y los gastos permanecen en el navegador.
 
 ## Ejecutar en Windows
