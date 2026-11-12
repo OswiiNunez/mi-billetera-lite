@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Mi Billetera Lite",
+    "slug": "mi-billetera-lite",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./icons/icon-512.png",
+    "userInterfaceStyle": "light"
+  }
+}

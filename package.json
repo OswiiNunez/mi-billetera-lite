@@ -1,0 +1,25 @@
+{
+  "name": "mi-billetera-lite",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "mobile/index.js",
+  "description": "PWA de gastos diarios con IndexedDB y funcionamiento offline, sin dependencias.",
+  "scripts": {
+    "start": "node server.mjs",
+    "mobile": "expo start --go",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-picker/picker": "2.11.4",
+    "expo": "^58.0.24",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.11.1"
+  }
+}

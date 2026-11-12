@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102d2a">
+  <meta name="description" content="Tus gastos diarios, en orden. Una billetera ligera que funciona incluso sin conexión.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Mi Billetera Lite · Tus gastos, en orden</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <div class="app-shell">
+    <header class="header">
+      <a class="brand" href="./" aria-label="Mi Billetera Lite, inicio">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7V6a2 2 0 0 1 2-2h12v3M4 7h15a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V7Zm16 4h-5v5h5m-3-2.5h.01"/></svg></span>
+        <span>mi billetera<span class="lite-tag">LITE</span></span>
+      </a>
+      <div class="header-actions">
+        <span id="connection-status" class="connection"><span class="status-dot"></span><span>En línea</span></span>
+        <button id="install-button" class="button button-outline" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span>Instalar app</span></button>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="page-heading">
+        <div><p class="eyebrow">UN POCO DE ORDEN, CADA DÍA</p><h1>Tu dinero, más claro.</h1><p class="lead">Registra lo que gastas. Sigue con tu día.</p></div>
+        <p id="current-date" class="current-date"></p>
+      </div>
+
+      <section class="overview" aria-label="Resumen de tus gastos">
+        <div class="balance-card">
+          <div class="balance-label"><span class="small-icon" aria-hidden="true">↗</span> Total de gastos <span class="currency-tag">MXN</span></div>
+          <p class="balance" id="total-amount">$0.00</p>
+          <div class="balance-footer"><span>Todos tus registros</span><span class="balance-decoration" aria-hidden="true">↗</span></div>
+        </div>
+        <div class="metric-card"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4m10-4v4M4 10h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm3 9h3m-3 3h6"/></svg></span><p>Gastado hoy</p><strong id="today-amount">$0.00</strong><span>Un día a la vez</span></div>
+        <div class="metric-card"><span class="metric-icon lavender" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10v17l-2-1-3 1-3-1-2 1V4Zm3 5h4m-4 4h4M5 4h14"/></svg></span><p>Gastos registrados</p><strong id="expense-count">0</strong><span id="count-caption">Aquí empieza tu historial</span></div>
+      </section>
+
+      <div class="workspace-grid">
+        <section class="card entry-card" aria-labelledby="entry-title">
+          <div class="section-heading"><span class="section-number">01</span><div><h2 id="entry-title">Agregar un gasto</h2><p>Los pequeños gastos también cuentan.</p></div></div>
+          <form id="expense-form">
+            <label for="concept">¿En qué gastaste?</label>
+            <input id="concept" name="concept" type="text" maxlength="80" placeholder="Ej. Café de la mañana" autocomplete="off" required>
+            <div class="form-columns">
+              <div><label for="amount">Monto <span class="optional">(MXN)</span></label><div class="amount-input"><span aria-hidden="true">$</span><input id="amount" name="amount" type="text" inputmode="decimal" maxlength="12" placeholder="0.00" aria-describedby="amount-hint" required></div></div>
+              <div><label for="category">Categoría</label><select id="category" name="category" required><option value="" disabled selected>Seleccionar</option><option value="Comida">Comida</option><option value="Transporte">Transporte</option><option value="Servicios">Servicios</option><option value="Ocio">Ocio</option><option value="Otros">Otros</option></select></div>
+            </div>
+            <p id="amount-hint" class="field-hint">Usa hasta 2 decimales. Ej. 45.50</p>
+            <p id="form-error" class="error-message" role="alert" hidden></p>
+            <button id="save-button" class="button button-primary" type="submit" disabled><span aria-hidden="true">＋</span> Guardar gasto</button>
+          </form>
+          <div class="local-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Zm-4 9 3 3 5-6"/></svg><span id="offline-note">Tus gastos se guardan en este dispositivo.</span></div>
+        </section>
+
+        <section class="card category-card" aria-labelledby="categories-title">
+          <div class="section-heading"><span class="section-number">02</span><div><h2 id="categories-title">¿A dónde se va?</h2><p>Tus gastos, por categoría.</p></div></div>
+          <div id="category-summary" class="category-summary"></div>
+          <p class="category-footnote">Una vista de todos tus registros.</p>
+        </section>
+
+        <section class="card history-card" aria-labelledby="history-title">
+          <div class="history-heading"><div class="section-heading"><span class="section-number">03</span><div><h2 id="history-title">Tu historial</h2><p>Del más reciente al más antiguo.</p></div></div><span id="history-count" class="pill">0 gastos</span></div>
+          <div class="history-tools"><div class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" aria-label="Buscar un gasto por concepto" placeholder="Buscar un gasto…" autocomplete="off"></div><select id="filter-category" aria-label="Filtrar historial por categoría"><option value="">Todas las categorías</option><option>Comida</option><option>Transporte</option><option>Servicios</option><option>Ocio</option><option>Otros</option></select></div>
+          <p id="history-error" class="error-message" role="alert" hidden></p>
+          <div id="empty-state" class="empty-state"><span class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 6h14v14H5V6Zm3-3h8v5H8V3Zm1 9h6m-6 4h4"/></svg></span><h3>Todo empieza con un gasto.</h3><p>Agrega el primero y empieza a conocer tus hábitos.</p></div>
+          <ul id="expense-list" class="expense-list" aria-label="Gastos registrados"></ul>
+          <p id="filter-message" class="filter-message" role="status" hidden></p>
+        </section>
+      </div>
+    </main>
+    <footer class="footer"><span>mi billetera <b>LITE</b><span class="footer-separator">/</span> Menos ruido. Más control.</span><span>Hecha para acompañarte, incluso sin conexión.</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toast-message"></span><button id="undo-button" type="button" hidden>Deshacer</button><button id="toast-close" type="button" aria-label="Cerrar aviso">×</button></div>
+  <dialog id="install-dialog" class="install-dialog" aria-labelledby="install-title"><form method="dialog"><button class="dialog-close" aria-label="Cerrar" type="submit">×</button></form><span class="dialog-icon" aria-hidden="true">↓</span><p class="eyebrow">SIEMPRE A LA MANO</p><h2 id="install-title">Tu billetera, en tu pantalla.</h2><p>Abre esta página en Chrome o Edge y busca <strong>Instalar aplicación</strong> en la barra de direcciones o en el menú del navegador.</p><p>En iPhone o iPad: abre en Safari, toca <strong>Compartir</strong> y elige <strong>Agregar a inicio</strong>.</p><p class="dialog-note">La primera visita necesita conexión para preparar la app. Después podrás registrar y consultar gastos sin internet.</p><form method="dialog"><button type="submit" class="button button-primary">Entendido</button></form></dialog>
+  <noscript><p class="noscript">Activa JavaScript para registrar y consultar tus gastos.</p></noscript>
+</body>
+</html>
